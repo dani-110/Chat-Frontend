@@ -30,9 +30,17 @@ const App = () => {
       console.log(socket.id, 'socket.id');
       console.log('hello jee connection established');
     });
-    socket.on('disconnect',()=>{
-      console.log("hello jee connection disconnected")
+    socket.emit('createMessage',{
+      from:"David",
+      text:'Hello first msg on socket -- RN 2'
     })
+    socket.on('newMsg',(msg)=>{
+      console.log('newMsg',msg)
+    })
+    socket.on('disconnect',()=>{
+      console.log("connection disconnected")
+    })
+    return () => socket.disconnect();
   },[])
 
   function addData() {
