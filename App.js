@@ -13,8 +13,9 @@ import { persistor } from './src/@core/services/store/store'
 import store from  './src/@core/services/store/store'
 
 import Theme from './src/shared/functions/darkTheme'
-import io from 'socket.io-client';
 
+
+import {ChatFlow} from './src/screens'
 var socket;
 // create a component
 const App = () => {
@@ -24,28 +25,9 @@ const App = () => {
     })
   }
 
-  useEffect(()=>{
-    socket = io("http://127.0.0.1:3000");
-    socket.on('connect', () => {
-      console.log(socket.id, 'socket.id');
-      console.log('hello jee connection established');
-    });
-    socket.emit('createMessage',{
-      from:"David",
-      text:'Hello first msg on socket -- RN 2'
-    })
-    socket.on('newMsg',(msg)=>{
-      console.log('newMsg',msg)
-    })
-    socket.on('disconnect',()=>{
-      console.log("connection disconnected")
-    })
-    return () => socket.disconnect();
-  },[])
-
   function addData() {
     let data = {
-      _id: 6,
+      _id: 1,
       name: "new data added",
       status: "Open",
     }
@@ -58,12 +40,11 @@ const App = () => {
     })
   }
 
-
   return (
     <>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <View style={styles.container}>
+          {/* <View style={styles.container}>
             <TouchableOpacity
               onPress={addData}
             >
@@ -75,7 +56,8 @@ const App = () => {
               <Text>GET DATA</Text>
             </TouchableOpacity>
             <Theme />
-          </View>
+          </View> */}
+          <ChatFlow/>
         </PersistGate>
       </Provider>
     </>
