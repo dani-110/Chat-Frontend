@@ -1,4 +1,5 @@
 //import liraries
+import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from './src/@core/services/utilsfunctions'
@@ -16,7 +17,14 @@ import Theme from './src/shared/functions/darkTheme'
 
 
 import {ChatFlow} from './src/screens'
+import {Map} from './src/screens'
+import {ChooseLocation} from './src/screens'
+
+import {NavigationContainer} from '@react-navigation/native'
+import {createStackNavigator} from '@react-navigation/stack'
+import FlashMessage from "react-native-flash-message";
 var socket;
+const Stack = createStackNavigator();
 // create a component
 const App = () => {
   async function get() {
@@ -57,7 +65,15 @@ const App = () => {
             </TouchableOpacity>
             <Theme />
           </View> */}
-          <ChatFlow/>
+          {/* <ChatFlow/> */}
+          {/* <Map/> */}
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen name='map' component={Map}/>
+              <Stack.Screen name='chooseLocation' component={ChooseLocation}/>
+            </Stack.Navigator>
+            <FlashMessage position="top"/>
+          </NavigationContainer>
         </PersistGate>
       </Provider>
     </>
